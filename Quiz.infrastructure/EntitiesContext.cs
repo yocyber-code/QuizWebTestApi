@@ -74,6 +74,7 @@ namespace Quiz.Infrastructure
         public virtual DbSet<Q_QUESTION> QUESTION { get; set; }
         public virtual DbSet<Q_CHOICE> CHOICE { get; set; }
         public virtual DbSet<Q_SAVE> SAVE { get; set; }
+        public virtual DbSet<Q_SCORE_BOARD> SCORE_BOARD { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -95,7 +96,22 @@ namespace Quiz.Infrastructure
                 entity.Property(e => e.USERGROUP)
                     .HasColumnName("USERGROUP");
             });
-            
+
+            modelBuilder.Entity<Q_SCORE_BOARD>(entity =>
+            {
+                entity.ToTable("Q_SCORE_BOARD");
+                entity.Property(e => e.USER_ID)
+                    .HasColumnName("USER_ID");
+                entity.Property(e => e.SCORE)
+                    .HasColumnName("SCORE");
+                entity.Property(e => e.CREATE_DATE)
+                    .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE");
+                entity.Property(e => e.UPDATE_DATE)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPDATE_DATE");
+            });
+
             modelBuilder.Entity<Q_USER_GROUP>(entity =>
             {
                 entity.ToTable("Q_USER_GROUP");

@@ -52,6 +52,30 @@ namespace QuizWebTestApi.Controllers
             return Ok(new ApiGenericResult<dynamic>() { Code = 200, Message = "Successful", MessageAlt = "สำเร็จ", Results = result });
         }
         
+        [HttpGet("Submit")]
+        public async Task<IActionResult> Submit([FromBody] SubmitCommand command)
+        {
+            var result = await _mediator.Send(command);
+            if(!result)
+            {
+                return BadRequest(new ApiGenericResult<dynamic>() { Code = 400, Message = "User not found", MessageAlt = "ไม่พบผู้ใช้" });
+            }
+            return Ok(new ApiGenericResult<dynamic>() { Code = 200, Message = "Successful", MessageAlt = "สำเร็จ", Results = result });
+        }
         
+        [HttpGet("Summary")]
+        public async Task<IActionResult> Summary([FromQuery] SummaryQuery query)
+        {
+            var result = await _mediator.Send(query);
+            if(result == null)
+            {
+                return BadRequest(new ApiGenericResult<dynamic>() { Code = 400, Message = "User not found", MessageAlt = "ไม่พบผู้ใช้" });
+            }
+            if(result.rank == 0)
+            {
+                return Ok(new ApiGenericResult<dynamic>() { Code = 200, Message = "Successful", MessageAlt = "สำเร็จ", Results = null });
+            }
+            return Ok(new ApiGenericResult<dynamic>() { Code = 200, Message = "Successful", MessageAlt = "สำเร็จ", Results = result });
+        }
     }
 }

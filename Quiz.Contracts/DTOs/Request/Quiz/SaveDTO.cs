@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Quiz.Contracts.DTOs.Request.Quiz
 {
-    public class LoadDTO
+    public class SaveDTO
     {
         public int question_id { get; set; }
         public int choice_id { get; set; }

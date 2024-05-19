@@ -40,7 +40,7 @@ namespace QuizWebTestApi.Controllers
             {
                 return BadRequest(new ApiGenericResult<dynamic>() { Code = 400, Message = "Username not found", MessageAlt = "ไม่พบบัญชีผู้ใช้", Results = null });
             }
-            return Ok(new ApiGenericResult<dynamic>() { Code = 200, Message = "Successful", MessageAlt = "ลงทะเบียนสำเร็จ", Results = response });
+            return Ok(new ApiGenericResult<dynamic>() { Code = 200, Message = "Successful", MessageAlt = "เข้าสู่ระบบสำเร็จ", Results = response });
         }
     }
 }

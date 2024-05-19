@@ -74,6 +74,8 @@ namespace Quiz.Infrastructure
 
         public virtual DbSet<Q_USER> USER { get; set; }
         public virtual DbSet<Q_USER_GROUP> USER_GROUP { get; set; }
+        public virtual DbSet<Q_QUESTION> QUESTION { get; set; }
+        public virtual DbSet<Q_CHOICE> CHOICE { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -105,6 +107,32 @@ namespace Quiz.Infrastructure
                 entity.Property(e => e.GROUP_NAME)
                     .HasMaxLength(50)
                     .HasColumnName("GROUP_NAME");
+            });
+            
+            modelBuilder.Entity<Q_QUESTION>(entity =>
+            {
+                entity.ToTable("Q_QUESTION");
+                entity.Property(e => e.ID)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("ID");
+                entity.Property(e => e.QUESTION)
+                    .HasColumnName("QUESTION");
+                entity.Property(e => e.USERGROUP)
+                    .HasColumnName("USERGROUP");
+            });
+            
+            modelBuilder.Entity<Q_CHOICE>(entity =>
+            {
+                entity.ToTable("Q_CHOICE");
+                entity.Property(e => e.ID)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("ID");
+                entity.Property(e => e.CHOICE)
+                    .HasColumnName("CHOICE");
+                entity.Property(e => e.QUESTION_ID)
+                    .HasColumnName("QUESTION_ID");
+                entity.Property(e => e.SCORE)
+                    .HasColumnName("SCORE");
             });
 
             OnModelCreatingPartial(modelBuilder);

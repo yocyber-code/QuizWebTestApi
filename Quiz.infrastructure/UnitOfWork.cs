@@ -36,6 +36,8 @@ namespace Quiz.Infrastructure.Data
 
         public IQ_UserRepository Q_UserRepository => new Q_UserRepository(_entityContext);
         public IQ_UserGroupRepository Q_UserGroupRepository => new Q_UserGroupRepository(_entityContext);
+        public IQ_QuestionRepository Q_QuestionRepository => new Q_QuestionRepository(_entityContext);
+        public IQ_ChoiceRepository Q_ChoiceRepository => new Q_ChoiceRepository(_entityContext);
      
     }
 }

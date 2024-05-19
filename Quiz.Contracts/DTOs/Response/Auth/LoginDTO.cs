@@ -8,6 +8,8 @@ namespace Quiz.Contracts.DTOs.Response.Auth
 {
     public class LoginDTO
     {
-        public string Token { get; set; } = null!;
+        public int id { get; set; }
+        public string username { get; set; }
+        public int group { get; set; }
     }
 }

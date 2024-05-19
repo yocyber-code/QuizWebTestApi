@@ -20,12 +20,10 @@ namespace Quiz.Core.Handler.Auth.Commands
     public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginDTO?>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IJwt _jwt;
 
-        public LoginCommandHandler(IUnitOfWork unitOfWork, IJwt jwt)
+        public LoginCommandHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _jwt = jwt;
         }
 
         public async Task<LoginDTO?> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -35,10 +33,11 @@ namespace Quiz.Core.Handler.Auth.Commands
             {
                 return null;
             }
-            string accessToken = await _jwt.CreateJWTExpireAsync(user.ID.ToString(), request.Username.ToString(), 2592000);
             return new LoginDTO()
             {
-                Token = accessToken
+                id = user.ID,
+                username = user.USERNAME,
+                group = user.USERGROUP,
             };
         }
     }

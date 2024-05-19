@@ -7,6 +7,8 @@ using System.Data;
 using Microsoft.VisualBasic;
 using Quiz.Contracts.Entities;
 using Quiz.Contracts.Interfaces;
+using DocumentFormat.OpenXml.Drawing.Charts;
+using System.Net;
 
 namespace Quiz.Infrastructure
 {
@@ -25,15 +27,14 @@ namespace Quiz.Infrastructure
             _datetime = datetime;
             _identity = identity;
             _configuration = configuration;
-            _dbConnection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+            _dbConnection = new SqlConnection(_configuration.GetConnectionString("ConnectionSQLServer"));
 
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string companyCode = _identity.GetCompanyCode();
-            string conString = _dbConnection.ConnectionString.Replace("#DbName", companyCode);
+            string conString = _dbConnection.ConnectionString;
 
             optionsBuilder.UseSqlServer(conString, builder =>
             {
@@ -50,39 +51,20 @@ namespace Quiz.Infrastructure
         {
             foreach (var item in ChangeTracker.Entries<BaseVersionModel>().AsEnumerable())
             {
-                var identity = _identity.GetUserId() ?? "System";
                 if (item.State == EntityState.Added)
                 {
 
-                    if (item.Entity.CreateDate == new DateTime())
+                    if (item.Entity.CREATE_DATE == new DateTime())
                     {
-                        item.Entity.CreateDate = _datetime.Now;
+                        item.Entity.CREATE_DATE = _datetime.Now;
                     }
 
-                    if (item.Entity.CreateBy == null)
-                    {
-                        item.Entity.CreateBy = identity;
-                        item.Entity.CreateDate = _datetime.Now;
-                    }
-
-                    if (identity == null)
-                    {
-                        item.Entity.UpdateBy = item.Entity.CreateBy;
-                    }
-                    else
-                    {
-                        item.Entity.UpdateBy = identity;
-                    }
-
-                    item.Entity.UpdateDate = _datetime.Now;
+                    item.Entity.UPDATE_DATE = _datetime.Now;
                 }
 
                 if (item.State == EntityState.Modified)
                 {
-                    item.Entity.UpdateDate = _datetime.Now;
-
-                    if (identity != null)
-                        item.Entity.UpdateBy = identity;
+                    item.Entity.UPDATE_DATE = _datetime.Now;
                 }
 
             }
@@ -90,7 +72,44 @@ namespace Quiz.Infrastructure
             return base.SaveChangesAsync(cancellationToken);
         }
 
-       
+        public virtual DbSet<Q_USER> USER { get; set; }
+        public virtual DbSet<Q_USER_GROUP> USER_GROUP { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Q_USER>(entity =>
+            {
+                entity.ToTable("Q_USER");
+                entity.Property(e => e.ID)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("ID");
+                entity.Property(e => e.USERNAME)
+                    .HasMaxLength(50)
+                    .HasColumnName("USERNAME");
+                entity.Property(e => e.CREATE_DATE)
+                    .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE");
+                entity.Property(e => e.UPDATE_DATE)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPDATE_DATE");
+                entity.Property(e => e.USERGROUP)
+                    .HasColumnName("USERGROUP");
+            });
+            
+            modelBuilder.Entity<Q_USER_GROUP>(entity =>
+            {
+                entity.ToTable("Q_USER_GROUP");
+                entity.Property(e => e.ID)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("ID");
+                entity.Property(e => e.GROUP_NAME)
+                    .HasMaxLength(50)
+                    .HasColumnName("GROUP_NAME");
+            });
+
+            OnModelCreatingPartial(modelBuilder);
+        }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 

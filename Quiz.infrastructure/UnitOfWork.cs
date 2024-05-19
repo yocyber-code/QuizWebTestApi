@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Quiz.Infrastructure.Data.Repositories;
+using Quiz.Contracts.Interfaces.repo;
+using Quiz.infrastructure.Repositories;
 
 namespace Quiz.Infrastructure.Data
 {
@@ -32,8 +34,8 @@ namespace Quiz.Infrastructure.Data
             return _entityContext.Database.CreateExecutionStrategy();
         }
 
-        //public ICustomerRepository Customer => new CustomerRepository(_entityContext);
+        public IQ_UserRepository Q_UserRepository => new Q_UserRepository(_entityContext);
+        public IQ_UserGroupRepository Q_UserGroupRepository => new Q_UserGroupRepository(_entityContext);
      
-
     }
 }

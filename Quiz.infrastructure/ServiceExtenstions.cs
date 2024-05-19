@@ -27,7 +27,7 @@ namespace Wattana.Infrastructure
 
         private static IServiceCollection AddDatabaseContext(this IServiceCollection services)
         {
-            return services.AddDbContext<EntitiesContext>(options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+            return services.AddDbContext<EntitiesContext>(options => options.UseSqlServer("name=ConnectionStrings:ConnectionSQLServer"));
         }
 
         public static IServiceCollection AddPersistence(this IServiceCollection services)

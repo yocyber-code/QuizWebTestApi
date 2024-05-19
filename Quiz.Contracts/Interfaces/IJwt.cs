@@ -9,8 +9,7 @@ namespace Quiz.Contracts.Interfaces
 {
     public interface IJwt
     {
-        Task<string> CreateJWTExpireAsync(string userId, string email,string role, int SecondExpired);
-        Task<string> CreateJWTAsync(string userId, string email);
+        Task<string> CreateJWTExpireAsync(string userId, string username, int SecondExpired);
         JObject DecodeJWT(string token);
     }
 }

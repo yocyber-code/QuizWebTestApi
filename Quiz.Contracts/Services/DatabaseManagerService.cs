@@ -27,7 +27,7 @@ namespace Quiz.Contracts.Services
             _configuration = configuration;
             _identity = identity;
 
-            _dbConnection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+            _dbConnection = new SqlConnection(_configuration.GetConnectionString("ConnectionSQLServer"));
             _connString = _dbConnection.ConnectionString;
         }
 

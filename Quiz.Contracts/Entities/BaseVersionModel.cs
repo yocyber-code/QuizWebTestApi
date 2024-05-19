@@ -5,13 +5,8 @@ namespace Quiz.Contracts.Entities
     public class BaseVersionModel
     {
         [JsonIgnore]
-        public string CreateBy { get; set; } = null!;
+        public DateTime CREATE_DATE { get; set; }
         [JsonIgnore]
-        public string UpdateBy { get; set; } = null!;
-        [JsonIgnore]
-        public DateTime CreateDate { get; set; }
-        [JsonIgnore]
-        public DateTime UpdateDate { get; set; }
-
+        public DateTime UPDATE_DATE { get; set; }
     }
 }

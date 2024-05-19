@@ -14,13 +14,8 @@ var provider = builder.Services.BuildServiceProvider();
 var configuration = provider.GetService<IConfiguration>();
 // Add services to the container.
 builder.Services.AddDateTime();
-builder.Services.AddFileService();
-builder.Services.AddIdentityService();
-builder.Services.AddAES256Service();
-builder.Services.AddRandomService();
 builder.Services.AddDatabaseManager();
 builder.Services.AddPersistence();
-builder.Services.AddJwtService();
 builder.Services.AddEnumService();
 builder.Services.AddLoggingService();
 builder.Services.AddJwtTokenAuthentication(configuration);

@@ -40,35 +40,9 @@ namespace Wattana.Infrastructure
             return services.AddSingleton<IDateTime, DateTimeService>();
         }
 
-
-        public static IServiceCollection AddFileService(this IServiceCollection services)
-        {
-            return services.AddScoped<IFileStorage, FileStorageService>();
-        }
-
-        public static IServiceCollection AddIdentityService(this IServiceCollection services)
-        {
-            return services.AddTransient<IUserIdentity, UserIdentityService>();
-        }
-
-        public static IServiceCollection AddAES256Service(this IServiceCollection services)
-        {
-            return services.AddSingleton<IAES256, AES256Service>();
-        }
-
-        public static IServiceCollection AddRandomService(this IServiceCollection services)
-        {
-            return services.AddSingleton<IRandom, RandomService>();
-        }
-
         public static IServiceCollection AddDatabaseManager(this IServiceCollection services)
         {
             return services.AddScoped<IDatabaseManager, DatabaseManagerService>();
-        }
-
-        public static IServiceCollection AddJwtService(this IServiceCollection services)
-        {
-            return services.AddSingleton<IJwt, JwtService>();
         }
 
         public static IServiceCollection AddHttpFormService(this IServiceCollection services)

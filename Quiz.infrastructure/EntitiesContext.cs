@@ -16,16 +16,13 @@ namespace Quiz.Infrastructure
     {
         private readonly IConfiguration _configuration;
         private IDateTime _datetime { get; set; }
-        private IUserIdentity _identity { get; set; }
         private IDbConnection _dbConnection { get; }
 
         public EntitiesContext(DbContextOptions<EntitiesContext> options,
             IDateTime datetime,
-            IUserIdentity identity,
             IConfiguration configuration) : base(options)
         {
             _datetime = datetime;
-            _identity = identity;
             _configuration = configuration;
             _dbConnection = new SqlConnection(_configuration.GetConnectionString("ConnectionSQLServer"));
 

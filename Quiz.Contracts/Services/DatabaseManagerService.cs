@@ -17,15 +17,13 @@ namespace Quiz.Contracts.Services
     public class DatabaseManagerService : IDatabaseManager
     {
         private readonly IConfiguration _configuration;
-        private readonly IUserIdentity _identity;
         private IDbConnection _dbConnection { get; }
 
         private string _connString { get; set; }
 
-        public DatabaseManagerService(IConfiguration configuration, IUserIdentity identity)
+        public DatabaseManagerService(IConfiguration configuration)
         {
             _configuration = configuration;
-            _identity = identity;
 
             _dbConnection = new SqlConnection(_configuration.GetConnectionString("ConnectionSQLServer"));
             _connString = _dbConnection.ConnectionString;

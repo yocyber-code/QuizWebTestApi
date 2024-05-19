@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Quiz.Contracts.DTOs.Response;
+using Quiz.Contracts.DTOs.Response.Quiz;
 using Quiz.Contracts.Interfaces;
 
 namespace Quiz.Core.Handler.Quiz.Quries

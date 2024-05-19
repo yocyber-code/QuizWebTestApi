@@ -10,6 +10,7 @@ namespace Quiz.Contracts.Interfaces
         IQ_UserGroupRepository Q_UserGroupRepository { get; }
         IQ_QuestionRepository Q_QuestionRepository { get; }
         IQ_ChoiceRepository Q_ChoiceRepository { get; }
+        IQ_SaveRepository Q_SaveRepository { get; }
 
         Task CommitAsync();
         Task<IDbContextTransaction> BeginTransactionAsync();

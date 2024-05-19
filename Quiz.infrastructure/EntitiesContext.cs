@@ -73,6 +73,7 @@ namespace Quiz.Infrastructure
         public virtual DbSet<Q_USER_GROUP> USER_GROUP { get; set; }
         public virtual DbSet<Q_QUESTION> QUESTION { get; set; }
         public virtual DbSet<Q_CHOICE> CHOICE { get; set; }
+        public virtual DbSet<Q_SAVE> SAVE { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -130,6 +131,20 @@ namespace Quiz.Infrastructure
                     .HasColumnName("QUESTION_ID");
                 entity.Property(e => e.SCORE)
                     .HasColumnName("SCORE");
+            });
+            
+            modelBuilder.Entity<Q_SAVE>(entity =>
+            {
+                entity.ToTable("Q_SAVE");
+                entity.Property(e => e.ID)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("ID");
+                entity.Property(e => e.USER_ID)
+                    .HasColumnName("USER_ID");
+                entity.Property(e => e.QUESTION_ID)
+                    .HasColumnName("QUESTION_ID");
+                entity.Property(e => e.CHOICE_ID)
+                    .HasColumnName("CHOICE_ID");
             });
 
             OnModelCreatingPartial(modelBuilder);

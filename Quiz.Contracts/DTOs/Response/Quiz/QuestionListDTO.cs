@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quiz.Contracts.DTOs.Response
+namespace Quiz.Contracts.DTOs.Response.Quiz
 {
     public class QuestionListDTO
     {

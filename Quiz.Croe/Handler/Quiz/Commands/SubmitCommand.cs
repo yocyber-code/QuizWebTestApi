@@ -43,6 +43,12 @@ namespace Quiz.Core.Handler.Quiz.Commands
                 return false;
             }
 
+            var scoreBoardExist = await _unitOfWork.Q_ScoreBoardRepository.GetQueryable().Where(x => x.USER_ID == user.ID).AnyAsync();
+            if (scoreBoardExist)
+            {
+                return false;
+            }
+
             var oldSave = await _unitOfWork.Q_SaveRepository.GetQueryable().Where(x => x.USER_ID == user.ID).ToListAsync();
             foreach (var item in oldSave)
             {

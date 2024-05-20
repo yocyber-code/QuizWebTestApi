@@ -37,6 +37,15 @@ namespace Quiz.Core.Handler.Quiz.Quries
 
             var saves = await _unitOfWork.Q_SaveRepository.GetQueryable().Where(x => x.USER_ID == user.ID).ToListAsync();
 
+            foreach (var save in saves)
+            {
+                result.Add(new LoadDTO()
+                {
+                    question_id = save.QUESTION_ID,
+                    choice_id = save.CHOICE_ID
+                });
+            }
+
             return result;
         }
     }

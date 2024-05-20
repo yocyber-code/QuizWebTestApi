@@ -34,7 +34,7 @@ namespace Quiz.Core.Handler.Quiz.Commands
             var oldSave = await _unitOfWork.Q_SaveRepository.GetQueryable().Where(x => x.USER_ID == user.ID).ToListAsync();
             foreach (var item in oldSave)
             {
-                _unitOfWork.Q_SaveRepository.Delete(item);
+                _unitOfWork.Q_SaveRepository.Delete(item.USER_ID);
             }
             await _unitOfWork.CommitAsync();
 

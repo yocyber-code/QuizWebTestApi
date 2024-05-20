@@ -8,6 +8,7 @@ using Quiz.Contracts.Helpers;
 using Wattana.Infrastructure;
 using Quiz.Core;
 using Wattana.Web.Filters;
+using FluentAssertions.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 var provider = builder.Services.BuildServiceProvider();
@@ -96,6 +97,11 @@ builder.Services.AddHttpClient("SAP").AddHttpMessageHandler<LoggingHandler>();
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigin", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -104,6 +110,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAllOrigin");
 
 app.UseHttpsRedirection();
 

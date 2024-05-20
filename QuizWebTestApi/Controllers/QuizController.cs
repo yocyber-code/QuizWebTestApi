@@ -52,7 +52,7 @@ namespace QuizWebTestApi.Controllers
             return Ok(new ApiGenericResult<dynamic>() { Code = 200, Message = "Successful", MessageAlt = "สำเร็จ", Results = result });
         }
         
-        [HttpGet("Submit")]
+        [HttpPost("Submit")]
         public async Task<IActionResult> Submit([FromBody] SubmitCommand command)
         {
             var result = await _mediator.Send(command);
